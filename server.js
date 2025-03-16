@@ -131,7 +131,7 @@ server.delete('/videos/:id', async (request, reply) => {
 const port = process.env.PORT || 3100
 const start = async () => {
      try {
-         server.listen({port})
+         server.listen(port)
      } catch (error) {
          console.log(error)
      }
