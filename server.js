@@ -14,6 +14,7 @@ const server = createServer( (request, response) => {
 
 import { fastify } from 'fastify';
 import postgres from '@fastify/postgres';
+import cors from '@fastify/cors';
 import 'dotenv/config'
 
 //! import { databaseMemory } from './database-memory.js';
@@ -22,11 +23,16 @@ import 'dotenv/config'
 
 const server = fastify({logger: true});
 
+server.register(cors, {
+    origin: ['http://127.0.0.1:5500'],
+    methods: ['GET', 'POST', 'DELETE', 'PUT']
+})
+
+
 server.register(postgres, {
     connectionString: `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_DATABASE}`,
     ssl:{ rejectUnauthorized: false }
 });
-
 
 
 // CRIAR VIDEO (POST)
@@ -115,7 +121,7 @@ server.delete('/videos/:id', async (request, reply) => {
 
         if (result.rowCount === 0) {
             return reply.status(404).send({ error: 'Vídeo não encontrado' });
-    2}
+        }
 
         return reply.status(204).send();
     } catch(error) {
