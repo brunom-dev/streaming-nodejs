@@ -9,8 +9,7 @@ const server = createServer( (request, response) => {
 
     return response.end()
 })
-
-server.listen(3333); */
+*/
 
 
 import { fastify } from 'fastify';
@@ -131,8 +130,7 @@ server.delete('/videos/:id', async (request, reply) => {
 
 const start = async () => {
      try {
-         server.listen({port: process.env.SERVER_PORT || 3100})
-         console.log("Servidor rodando http://localhost:3100/videos");
+         server.listen({port: process.env.PORT ?? 3100})
      } catch (error) {
          console.log(error)
      }
